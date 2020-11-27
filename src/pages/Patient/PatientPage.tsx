@@ -1,31 +1,29 @@
-
 import React, {useEffect, useState} from 'react';
-import { useRouteMatch } from 'react-router-dom';
+import {useRouteMatch} from 'react-router-dom';
 import './styles.scss';
-import { Skeleton } from 'antd';
+import {Skeleton} from 'antd';
 import {request} from '../../shared/utils/api';
 import {RouteParams} from '../../shared/interfaces/route';
 import {Patient} from '../../shared/interfaces/patient';
 
 const PatientPage = () => {
   const params = useRouteMatch<RouteParams>('/patient/:id');
-  const [patient, setPatient] = useState<Patient|null>(null);
+  const [patient, setPatient] = useState<Patient | null>(null);
 
   useEffect(() => {
     request(`patients/${params?.params?.id}`, {
       method: 'GET'
     }).then((r) => {
-      setPatient(r)
+      setPatient(r);
     });
   }, []);
 
   return (
     <div>
-      { !patient &&
-        <Skeleton active />
-      }
+      {!patient && <Skeleton active />}
 
-      { patient &&
+      {
+        patient &&
         <>
           <h1>{patient.firstName}</h1>
           <p>{patient.id}</p>
@@ -34,8 +32,8 @@ const PatientPage = () => {
         </>
       }
     </div>
-  )
-}
+  );
+};
 
-export default PatientPage
+export default PatientPage;
   
