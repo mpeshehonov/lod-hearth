@@ -18,7 +18,7 @@ const PageLayout: FC<any> = ({children}) => {
           <Layout.Content className="layout-content" style={{padding: '0 50px', marginTop: 64}}>
             <div className="site-layout-content">
               { location.pathname !== '/' &&
-                <Button type="primary" onClick={() => history.goBack()} style={{marginBottom: 16, float: 'right'}}>
+                <Button type="primary" onClick={() => history.goBack()} style={{marginBottom: 16, marginLeft: 16, float: 'right'}}>
                   <ArrowLeftOutlined />
                   Назад
                 </Button>

@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {useRouteMatch} from 'react-router-dom';
+import {Link, useRouteMatch} from 'react-router-dom';
 import './styles.scss';
-import {Skeleton} from 'antd';
+import {Skeleton, Button} from 'antd';
 import {request} from '../../shared/utils/api';
 import {RouteParams} from '../../shared/interfaces/route';
 import {Patient} from '../../shared/interfaces/patient';
+import {FormOutlined} from '@ant-design/icons';
 
 const PatientPage = () => {
   const params = useRouteMatch<RouteParams>('/patient/:id');
@@ -25,6 +26,12 @@ const PatientPage = () => {
       {
         patient &&
         <>
+          <Link to={`/patient/${patient.id}/edit`}>
+            <Button type="primary" style={{marginBottom: 16, float: 'right'}}>
+              <FormOutlined />
+              Редактировать
+            </Button>
+          </Link>
           <h1>{patient.firstName}</h1>
           <p>{patient.id}</p>
           <p>{patient.mail}</p>
