@@ -4,40 +4,40 @@ import {Link, useRouteMatch} from 'react-router-dom';
 import {Button, Skeleton} from 'antd';
 import {UserOutlined} from '@ant-design/icons';
 import {RouteParams} from '../../shared/interfaces/route';
-import {Patient} from '../../shared/interfaces/patient';
+import {Client} from '../../shared/interfaces/client';
 import {request} from '../../shared/utils/api';
 
-const PatientEdit = () => {
-  const params = useRouteMatch<RouteParams>('/patient/:id');
-  const [patient, setPatient] = useState<Patient | null>(null);
+const ClientEdit = () => {
+  const params = useRouteMatch<RouteParams>('/client/:id');
+  const [client, setClient] = useState<Client | null>(null);
 
   useEffect(() => {
-    request(`patients/${params?.params?.id}`, {
+    request(`client/${params?.params?.id}`, {
       method: 'GET'
     }).then((r) => {
-      setPatient(r);
+      setClient(r);
     });
   }, []);
 
   return (
     <div>
-      {!patient && <Skeleton active />}
+      {!client && <Skeleton active />}
 
       {
-        patient &&
+        client &&
         <>
-          <Link to={`/patient/${patient.id}`}>
+          <Link to={`/client/${client.id}`}>
             <Button type="primary" style={{marginBottom: 16, float: 'right'}}>
               <UserOutlined />
               Посмотреть
             </Button>
           </Link>
-            PatientEdit component works
+            ClientEdit component works
         </>
       }
     </div>
   );
 };
 
-export default PatientEdit;
+export default ClientEdit;
   

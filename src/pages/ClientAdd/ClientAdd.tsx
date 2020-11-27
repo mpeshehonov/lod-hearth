@@ -2,13 +2,13 @@
 import React from 'react';
 import './styles.scss';
 
-const PatientAdd = () => {
+const ClientAdd = () => {
   return (
     <div>
-      PatientAdd component works
+      ClientAdd component works
     </div>
   )
 }
 
-export default PatientAdd
+export default ClientAdd
   

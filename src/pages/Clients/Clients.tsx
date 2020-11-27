@@ -5,18 +5,22 @@ import './styles.scss';
 import {request} from '../../shared/utils/api';
 import {FormOutlined, UserOutlined, UserAddOutlined} from '@ant-design/icons';
 
-const Patients = () => {
-  const [patients, setPatients] = useState([]);
+const Clients = () => {
+  const [clients, setClients] = useState([]);
   const [tableLoading, setTableLoading] = useState(true);
 
   const columns = [
     {
-      title: 'Имя',
-      dataIndex: 'firstName'
+      title: 'ID',
+      dataIndex: 'id'
     },
     {
-      title: 'Email',
-      dataIndex: 'mail'
+      title: 'Место проживания',
+      dataIndex: 'areaType'
+    },
+    {
+      title: 'Дата рождения',
+      dataIndex: 'birthday'
     },
     {
       title: 'Возраст',
@@ -27,14 +31,14 @@ const Patients = () => {
       dataIndex: 'id',
       render: (id: string) => (
         <>
-          <Link to={`/patient/${id}`}>
+          <Link to={`/client/${id}`}>
             <Button type="primary">
               <UserOutlined />
               Открыть
             </Button>
           </Link>
           &nbsp;&nbsp;
-          <Link to={`/patient/${id}/edit`}>
+          <Link to={`/client/${id}/edit`}>
             <Button type="primary">
               <FormOutlined />
               Изменить
@@ -46,10 +50,10 @@ const Patients = () => {
   ];
 
   useEffect(() => {
-    request('patients', {
+    request('clients', {
       method: 'GET'
     }).then((r) => {
-      setPatients(r);
+      setClients(r);
       setTableLoading(false);
     });
   }, []);
@@ -58,17 +62,17 @@ const Patients = () => {
     <div>
       <Row>
         <Col span={24}>
-          <Link to="/patient/add">
+          <Link to="/client/add">
             <Button type="primary" style={{marginBottom: 16, float: 'right'}}>
               <UserAddOutlined />
-              Добавить пациента
+              Добавить анкету
             </Button>
           </Link>
           <Table
             columns={columns}
-            dataSource={patients}
+            dataSource={clients}
             loading={tableLoading}
-            title={() => 'Пациенты'}
+            title={() => 'Анкеты'}
             bordered
           />
         </Col>
@@ -77,5 +81,5 @@ const Patients = () => {
   );
 };
 
-export default Patients;
+export default Clients;
   

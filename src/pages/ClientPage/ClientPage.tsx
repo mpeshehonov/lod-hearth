@@ -4,43 +4,41 @@ import './styles.scss';
 import {Skeleton, Button} from 'antd';
 import {request} from '../../shared/utils/api';
 import {RouteParams} from '../../shared/interfaces/route';
-import {Patient} from '../../shared/interfaces/patient';
+import {Client} from '../../shared/interfaces/client';
 import {FormOutlined} from '@ant-design/icons';
 
-const PatientPage = () => {
-  const params = useRouteMatch<RouteParams>('/patient/:id');
-  const [patient, setPatient] = useState<Patient | null>(null);
+const ClientPage = () => {
+  const params = useRouteMatch<RouteParams>('/client/:id');
+  const [client, setClient] = useState<Client | null>(null);
 
   useEffect(() => {
-    request(`patients/${params?.params?.id}`, {
+    request(`client/${params?.params?.id}`, {
       method: 'GET'
     }).then((r) => {
-      setPatient(r);
+      setClient(r);
     });
   }, []);
 
   return (
     <div>
-      {!patient && <Skeleton active />}
+      {!client && <Skeleton active />}
 
       {
-        patient &&
+        client &&
         <>
-          <Link to={`/patient/${patient.id}/edit`}>
+          <Link to={`/client/${client.id}/edit`}>
             <Button type="primary" style={{marginBottom: 16, float: 'right'}}>
               <FormOutlined />
               Редактировать
             </Button>
           </Link>
-          <h1>{patient.firstName}</h1>
-          <p>{patient.id}</p>
-          <p>{patient.mail}</p>
-          <p>{patient.age}</p>
+          <h1>Анкета №{client.id}</h1>
+          <p>Дата рождения: {client.birthday}, возраст{client.age}</p>
         </>
       }
     </div>
   );
 };
 
-export default PatientPage;
+export default ClientPage;
   
