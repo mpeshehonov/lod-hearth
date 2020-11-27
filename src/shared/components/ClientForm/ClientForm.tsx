@@ -40,14 +40,14 @@ const ClientForm = () => {
                 <Form.Item
                     label="Имя"
                     name="name1"
-                    rules={[{required: true, message: 'Введите имя пациента'}]}
+                    rules={[{required: true, message: 'Введите имя'}]}
                 >
                     <Input/>
                 </Form.Item>
                 <Form.Item
                     label="Фамилия"
                     name="name2"
-                    rules={[{required: true, message: 'Введите фамилию пациента'}]}
+                    rules={[{required: true, message: 'Введите фамилию'}]}
                 >
                     <Input/>
                 </Form.Item>
@@ -55,7 +55,7 @@ const ClientForm = () => {
                 <Form.Item
                     label="Отчество"
                     name="name3"
-                    rules={[{required: true, message: 'Введите отчество пациента'}]}
+                    rules={[{required: true, message: 'Введите отчество'}]}
                 >
                     <Input/>
                 </Form.Item>
@@ -78,8 +78,8 @@ const ClientForm = () => {
                     rules={[{ required: true, message: 'Выберите тип населённого пункта' }]}
                 >
                     <Select placeholder="Выберите тип населённого пункта">
-                        <Option value="city">Город</Option>
-                        <Option value="village">Село</Option>
+                        <Option value="1">Город</Option>
+                        <Option value="2">Село</Option>
                     </Select>
                 </Form.Item>
 

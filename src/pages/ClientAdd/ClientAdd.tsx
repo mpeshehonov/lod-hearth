@@ -5,7 +5,7 @@ import './styles.scss';
 const ClientAdd = () => {
   return (
     <div>
-      ClientAdd component works
+      Новая анкета
       <ClientForm />
     </div>
   )
