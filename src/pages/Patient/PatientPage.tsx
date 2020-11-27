@@ -2,6 +2,7 @@
 import React, {useEffect, useState} from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import './styles.scss';
+import { Skeleton } from 'antd';
 import {request} from '../../shared/utils/api';
 import {RouteParams} from '../../shared/interfaces/route';
 import {Patient} from '../../shared/interfaces/patient';
@@ -20,6 +21,10 @@ const PatientPage = () => {
 
   return (
     <div>
+      { !patient &&
+        <Skeleton active />
+      }
+
       { patient &&
         <>
           <h1>{patient.firstName}</h1>

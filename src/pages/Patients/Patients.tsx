@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import {Table, Row, Col, Button} from 'antd';
 import './styles.scss';
 import {request} from '../../shared/utils/api';
+import {FormOutlined, UserOutlined, UserAddOutlined} from '@ant-design/icons';
 
 const Patients = () => {
   const [patients, setPatients] = useState([]);
@@ -27,11 +28,17 @@ const Patients = () => {
       render: (id: string) => (
         <>
           <Link to={`/patient/${id}`}>
-            <Button type="primary">Перейти</Button>
+            <Button type="primary">
+              <UserOutlined />
+              Открыть
+            </Button>
           </Link>
           &nbsp;&nbsp;
           <Link to={`/patient/${id}/edit`}>
-            <Button type="primary">Изменить</Button>
+            <Button type="primary">
+              <FormOutlined />
+              Изменить
+            </Button>
           </Link>
         </>
       )
@@ -42,7 +49,7 @@ const Patients = () => {
     request('patients', {
       method: 'GET'
     }).then((r) => {
-      setPatients(r)
+      setPatients(r);
       setTableLoading(false);
     });
   }, []);
@@ -51,10 +58,18 @@ const Patients = () => {
     <div>
       <Row>
         <Col span={24}>
+          <Link to="/patient/add">
+            <Button type="primary" style={{marginBottom: 16, float: 'right'}}>
+              <UserAddOutlined />
+              Добавить пациента
+            </Button>
+          </Link>
           <Table
             columns={columns}
             dataSource={patients}
             loading={tableLoading}
+            title={() => 'Пациенты'}
+            bordered
           />
         </Col>
       </Row>

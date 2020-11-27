@@ -1,13 +1,17 @@
 import React from 'react';
 import {Layout, Menu, Avatar} from 'antd';
 import {Link} from 'react-router-dom';
-import {UserOutlined} from '@ant-design/icons';
+import {HeartFilled, UserOutlined} from '@ant-design/icons';
 import './Header.scss';
 
 const Header = () => {
   return (
-    <Layout.Header className="header site-layout-background">
-      <div className="logo">Сердце</div>
+    <Layout.Header className="header">
+      <div className="logo">
+        <HeartFilled style={{ color: 'hotpink' }} />
+        &nbsp;
+        Сердце
+      </div>
       <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
         <Menu.Item key="1">
           <Link to="/">Пациенты</Link>
