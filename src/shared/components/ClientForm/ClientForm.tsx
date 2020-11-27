@@ -2,7 +2,7 @@ import React from 'react';
 import {Form, Input, Button, Checkbox, DatePicker, Radio, Upload, Select, InputNumber} from 'antd';
 import {UploadOutlined} from '@ant-design/icons';
 
-const PatientForm = () => {
+const ClientForm = () => {
 
     const onFinish = (values: any) => {
         console.log('Success:', values);
@@ -119,4 +119,4 @@ const PatientForm = () => {
     );
 };
 
-export default PatientForm;
+export default ClientForm;
