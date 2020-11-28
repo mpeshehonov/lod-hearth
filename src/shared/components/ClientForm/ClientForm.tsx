@@ -31,7 +31,7 @@ const ClientForm: FC<ClientFormData> = ({client}) => {
   }
 
   const onFinish = (values: any) => {
-    const url = client ? `client/${client.id}/edit` : 'client/add';
+    const url = client?.id ? `client/${client.id}/edit` : 'client/add';
 
     request(url, {
       method: 'POST',
