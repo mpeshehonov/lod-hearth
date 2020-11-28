@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Link, useRouteMatch} from 'react-router-dom';
 import './styles.scss';
-import {Skeleton, Button, Progress, Descriptions} from 'antd';
+import {Skeleton, Button, Progress, Descriptions, Modal} from 'antd';
 import {request} from '../../shared/utils/api';
 import {RouteParams} from '../../shared/interfaces/route';
 import {Client} from '../../shared/interfaces/client';
@@ -11,11 +11,58 @@ const ClientPage = () => {
   const params = useRouteMatch<RouteParams>('/client/:id');
   const [client, setClient] = useState<Client | null>(null);
 
+  function error(maxTrouble: number) {
+    Modal.error({
+      title: 'Внимание!',
+      content: (
+          <div>
+            <p>Высокая вероятность возникновения проблемы в сердечно-сосудистой системе: <b>{maxTrouble} %</b><br/>
+            Необходимо срочно обратиться к врачу!</p>
+          </div>
+      ),
+      onOk() {},
+    });
+  }
+
+  function warning(maxTrouble: number) {
+    Modal.warning({
+      title: 'Предупреждение',
+      content: (
+          <div>
+            <p>Высокая вероятность возникновения проблемы в сердечно-сосудистой системе: <b>{maxTrouble} %</b><br/>
+            Рекомендуем посетить врача.</p>
+          </div>
+      ),
+      onOk() {},
+    });
+  }
+
+  function info(maxTrouble: number) {
+    Modal.info({
+      title: 'Предупреждение',
+      content: (
+          <div>
+            <p>Возможны боолезни сердечно-сосудистой системы: <b>{maxTrouble} %</b><br/>
+            Необходимо принять профилактические меры. Рекомендуем посетить врача.</p>
+          </div>
+      ),
+      onOk() {},
+    });
+  }
+
   useEffect(() => {
     request(`client/${params?.params?.id}`, {
       method: 'GET'
     }).then((r) => {
       setClient(r);
+      const maxTrouble = Math.max(r.gipertenziya, r.onmk, r.infarkt, r.heart_failure, r.other_ill);
+      if (maxTrouble >= 70) {
+        error(maxTrouble);
+      } else if (maxTrouble >= 50) {
+        warning(maxTrouble);
+      } else if (maxTrouble >= 20) {
+        info(maxTrouble);
+      }
     });
   }, [params?.params?.id]);
 
@@ -140,4 +187,3 @@ const ClientPage = () => {
 };
 
 export default ClientPage;
-  
