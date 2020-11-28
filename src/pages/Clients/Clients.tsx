@@ -16,7 +16,8 @@ const Clients = () => {
     },
     {
       title: 'Место проживания',
-      dataIndex: 'areaType'
+      dataIndex: 'areaType',
+      render: (areaType: number) => areaType === 1 ? 'Город' : 'Село'
     },
     {
       title: 'Дата рождения',
