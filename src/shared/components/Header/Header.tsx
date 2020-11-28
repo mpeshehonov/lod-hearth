@@ -17,19 +17,16 @@ const Header = () => {
           <Link to="/">Анкеты</Link>
         </Menu.Item>
         <Menu.Item key="2">
-          <Link to="/redactor">Редактор</Link>
-        </Menu.Item>
-        <Menu.Item key="3">
           <Link to="/train">Тренажер</Link>
         </Menu.Item>
-        <Menu.Item key="4">
+        <Menu.Item key="3">
           <Link to="/med">Аналитика</Link>
         </Menu.Item>
       </Menu>
       <div className="user">
         <Avatar icon={<UserOutlined />} />
         &nbsp;
-        Максим
+        Елена
       </div>
     </Layout.Header>
   );
