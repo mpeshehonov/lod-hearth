@@ -23,3 +23,7 @@ export interface Client {
 	onmk: number;
 	other_ill: number;
 }
+
+export interface ClientFormData {
+	client: Client | null;
+}

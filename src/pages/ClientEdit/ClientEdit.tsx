@@ -18,7 +18,7 @@ const ClientEdit = () => {
     }).then((r) => {
       setClient(r);
     });
-  }, []);
+  }, [params?.params?.id]);
 
   return (
     <div>
@@ -33,8 +33,10 @@ const ClientEdit = () => {
               Посмотреть
             </Button>
           </Link>
-            ClientEdit component works
-            <ClientForm {...client} />
+            Редактирование анкеты
+            <ClientForm
+              client={client}
+            />
         </>
       }
     </div>

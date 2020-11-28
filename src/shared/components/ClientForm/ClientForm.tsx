@@ -1,83 +1,142 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {Form, Input, Button, Checkbox, DatePicker, Radio, Upload, Select, InputNumber} from 'antd';
 import {UploadOutlined} from '@ant-design/icons';
-import {Client} from '../../interfaces/client';
+import {ClientFormData} from '../../interfaces/client';
+import {request} from '../../utils/api';
 
-const ClientForm = (client: Client | null) => {
+const {Option} = Select;
 
-    const onFinish = (values: any) => {
-        console.log('Success:', values);
-    };
+const ClientForm: FC<ClientFormData> = ({client}) => {
 
-    const formItemLayout = {
-        labelCol: {span: 6},
-        wrapperCol: {span: 14},
-    };
+  const formItemLayout = {
+    labelCol: {span: 6},
+    wrapperCol: {span: 14},
+  };
 
-    const { Option } = Select;
+  const onFinish = (values: any) => {
+    const url = client ? `client/${client}/edit` : 'client/add';
 
-    const onFinishFailed = (errorInfo: any) => {
-        console.log('Failed:', errorInfo);
-    };
+    request(url, {
+      method: 'POST',
+      body: JSON.stringify(values)
+    })
+      .then(r => r.json())
+      .then(r => console.log(r));
+  };
 
-    const normFile = (e: { fileList: any; }) => {
-        console.log('Upload event:', e);
-        if (Array.isArray(e)) {
-            return e;
-        }
-        return e && e.fileList;
-    };
+  const onFinishFailed = (errorInfo: any) => {
+    console.log('Failed:', errorInfo);
+  };
 
-    // @ts-ignore
-    return (
-        <div style={{clear: 'both'}}>
+  const normFile = (e: { fileList: any; }) => {
+    console.log('Upload event:', e);
+    if (Array.isArray(e)) {
+      return e;
+    }
+    return e && e.fileList;
+  };
+
+  return (
+    <div style={{clear: 'both'}}>
             <Form
-                name="basic"
-                {...formItemLayout}
-                initialValues={{remember: true}}
-                onFinish={onFinish}
-                onFinishFailed={onFinishFailed}
+              name="basic"
+              {...formItemLayout}
+              initialValues={{...client}}
+              onFinish={onFinish}
+              onFinishFailed={onFinishFailed}
             >
 
                 <Form.Item
-                    label="Имя"
-                    name="name1"
-                    rules={[{required: true, message: 'Введите имя'}]}
+                  label="Образование"
+                  name="study"
                 >
-                    <Input value={client?.ethnos}/>
-                </Form.Item>
-                <Form.Item
-                    label="Фамилия"
-                    name="name2"
-                    rules={[{required: true, message: 'Введите фамилию'}]}
-                >
-                    <Input/>
+                    <Input />
                 </Form.Item>
 
                 <Form.Item
-                    label="Отчество"
-                    name="name3"
-                    rules={[{required: true, message: 'Введите отчество'}]}
+                  label="Национальность"
+                  name="national"
                 >
-                    <Input/>
+                    <Input />
                 </Form.Item>
 
-                <Form.Item label="Дата рождения">
-                    <DatePicker/>
+                <Form.Item
+                  label="Профессия"
+                  name="profession"
+                >
+                    <Input />
+                </Form.Item>
+
+                <Form.Item
+                  label="Религия"
+                  name="religion"
+                >
+                    <Input />
+                </Form.Item>
+
+                <Form.Item
+                  label="Семейное положение"
+                  name="family"
+                >
+                    <Input />
+                </Form.Item>
+
+                <Form.Item
+                  label="Возраст"
+                  name="age"
+                  rules={[{required: true}]}
+                >
+                   <InputNumber min={1} max={100} />
                 </Form.Item>
 
                 <Form.Item name="sex" label="Пол">
                     <Radio.Group>
-                        <Radio value="male">Мужской</Radio>
-                        <Radio value="female">Женский</Radio>
+                        <Radio value="М">Мужской</Radio>
+                        <Radio value="Ж">Женский</Radio>
+                    </Radio.Group>
+                </Form.Item>
+
+                <Form.Item name="working" label="Работает">
+                    <Radio.Group>
+                        <Radio value="1">Да</Radio>
+                        <Radio value="0">Нет</Radio>
+                    </Radio.Group>
+                </Form.Item>
+
+                <Form.Item name="pension" label="На пенсии">
+                    <Radio.Group>
+                        <Radio value="1">Да</Radio>
+                        <Radio value="0">Нет</Radio>
+                    </Radio.Group>
+                </Form.Item>
+
+                <Form.Item name="work_end_by_ill" label="Прекращение работы по болезни">
+                    <Radio.Group>
+                        <Radio value="1">Да</Radio>
+                        <Radio value="0">Нет</Radio>
+                    </Radio.Group>
+                </Form.Item>
+
+                <Form.Item name="diabet" label="Диабет">
+                    <Radio.Group>
+                        <Radio value="1">Да</Radio>
+                        <Radio value="0">Нет</Radio>
                     </Radio.Group>
                 </Form.Item>
 
                 <Form.Item
-                    name="settlement-type"
-                    label="Тип населённого пункта"
-                    hasFeedback
-                    rules={[{ required: true, message: 'Выберите тип населённого пункта' }]}
+                   label="Длительность диабета"
+                   name="diabet_long"
+                >
+                   <InputNumber min={0} max={100} />
+                </Form.Item>
+
+
+                <Form.Item
+                  name="areaType"
+                  label="Тип населённого пункта"
+                  hasFeedback
+                  rules={[{required: true, message: 'Выберите тип населённого пункта'}]}
                 >
                     <Select placeholder="Выберите тип населённого пункта">
                         <Option value="1">Город</Option>
@@ -85,31 +144,17 @@ const ClientForm = (client: Client | null) => {
                     </Select>
                 </Form.Item>
 
-                <Form.Item label="Размер семьи">
-                    <Form.Item name="family-size" noStyle>
-                        <InputNumber min={1} max={100} />
-                    </Form.Item>
-                </Form.Item>
-
                 <Form.Item
-                    name="checkbox-group"
-                    label="Дополнительные факторы:">
-                    <Checkbox.Group>
-                        <Checkbox value="smoke">Курение</Checkbox>
-                        <Checkbox value="alcohol">Алкоголь</Checkbox>
-                    </Checkbox.Group>
-                </Form.Item>
-
-                <Form.Item
-                    name="upload"
-                    label="Скан документа / справки"
-                    valuePropName="fileList"
-                    getValueFromEvent={normFile}
+                  name="cardioFile"
+                  label="Кардиограмма"
+                  valuePropName="cardioFile"
+                  getValueFromEvent={normFile}
                 >
-                    <Upload name="logo" listType="picture">
-                        <Button icon={<UploadOutlined/>}>Загрузить</Button>
+                    <Upload listType="picture">
+                        <Button icon={<UploadOutlined />}>Загрузить</Button>
                     </Upload>
                 </Form.Item>
+
                 <Form.Item>
                     <Button type="primary" htmlType="submit">
                         Сохранить
@@ -118,7 +163,7 @@ const ClientForm = (client: Client | null) => {
             </Form>
         </div>
 
-    );
+  );
 };
 
 export default ClientForm;

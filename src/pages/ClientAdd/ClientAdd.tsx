@@ -1,15 +1,17 @@
-import React from 'react';
-import { Client } from '../../shared/interfaces/client';
+import React, {useState} from 'react';
 import ClientForm from './../../shared/components/ClientForm'
 import './styles.scss';
-
-let client: Client | null = null;
+import {Client} from '../../shared/interfaces/client';
 
 const ClientAdd = () => {
+  const [client, setClient] = useState<Client | null>(null);
+
   return (
     <div>
       Новая анкета
-      <ClientForm {...client}/>
+      <ClientForm
+        client={client}
+      />
     </div>
   )
 }

@@ -43,7 +43,7 @@ const ClientPage = () => {
             <Descriptions.Item label="Профессия">
               {client.profession}
             </Descriptions.Item>
-            <Descriptions.Item label="Этнос">
+            <Descriptions.Item label="Раса">
               {client.ethnos}
             </Descriptions.Item>
             <Descriptions.Item label="Национальность">
@@ -58,8 +58,26 @@ const ClientPage = () => {
             <Descriptions.Item label="Образование">
               {client.study}
             </Descriptions.Item>
+            <Descriptions.Item label="Семейное положение">
+              {client.family}
+            </Descriptions.Item>
             <Descriptions.Item label="Проживает">
               {client.areaType === '1' ? 'Город' : 'Село'}
+            </Descriptions.Item>
+            <Descriptions.Item label="Работает">
+              {client.areaType === '1' ? 'Да' : 'Нет'}
+            </Descriptions.Item>
+            <Descriptions.Item label="На пенсии">
+              {client.pension === '1' ? 'Да' : 'Нет'}
+            </Descriptions.Item>
+            <Descriptions.Item label="Прекращение работы по болезни">
+              {client.work_end_by_ill === '1' ? 'Да' : 'Нет'}
+            </Descriptions.Item>
+            <Descriptions.Item label="Диабет">
+              {client.diabet === '1' ? 'Да' : 'Нет'}
+            </Descriptions.Item>
+            <Descriptions.Item label="Длительность диабета">
+              {client.diabet_long}
             </Descriptions.Item>
             <Descriptions.Item label="Вероятность артериальной гипертензии">
                <Progress

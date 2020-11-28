@@ -19,6 +19,12 @@ const Header = () => {
         <Menu.Item key="2">
           <Link to="/redactor">Редактор</Link>
         </Menu.Item>
+        <Menu.Item key="3">
+          <Link to="/train">Тренажер</Link>
+        </Menu.Item>
+        <Menu.Item key="4">
+          <Link to="/med">Аналитика</Link>
+        </Menu.Item>
       </Menu>
       <div className="user">
         <Avatar icon={<UserOutlined />} />
