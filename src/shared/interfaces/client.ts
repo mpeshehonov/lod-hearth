@@ -1,10 +1,9 @@
 export interface Client {
-	_id: string;
-	id: string;
+	_id?: string;
+	id?: string;
 	areaType: string;
 	birthday: string;
 	age: string;
-	arterial_gipper: string;
 	diabet: string;
 	diabet_long: string;
 	ethnos: string;
@@ -17,11 +16,11 @@ export interface Client {
 	study: string;
 	work_end_by_ill: string;
 	working: string;
-	gipertenziya: number;
-	heart_failure: number;
-	infarkt: number;
-	onmk: number;
-	other_ill: number;
+	gipertenziya?: number;
+	heart_failure?: number;
+	infarkt?: number;
+	onmk?: number;
+	other_ill?: number;
 }
 
 export interface ClientFormData {

@@ -1,21 +1,26 @@
 import React, {useEffect, useState} from 'react';
 import {Link, useRouteMatch} from 'react-router-dom';
 import './styles.scss';
-import {Skeleton, Button, Progress, Descriptions, Modal} from 'antd';
+import {Skeleton, Button, Progress, Descriptions, Modal, Image} from 'antd';
 import {request} from '../../shared/utils/api';
 import {RouteParams} from '../../shared/interfaces/route';
 import {Client} from '../../shared/interfaces/client';
 import {FormOutlined} from '@ant-design/icons';
+import heart from './../../shared/img/heart.jpg';
 
 const ClientPage = () => {
   const params = useRouteMatch<RouteParams>('/client/:id');
   const [client, setClient] = useState<Client | null>(null);
 
-  function error(maxTrouble: number) {
+  const error = (maxTrouble: number) => {
     Modal.error({
       title: 'Внимание!',
       content: (
           <div>
+            <Image
+              width={200}
+              src={heart}
+            />
             <p>Высокая вероятность возникновения проблемы в сердечно-сосудистой системе: <b>{maxTrouble} %</b><br/>
             Необходимо срочно обратиться к врачу!</p>
           </div>
@@ -24,11 +29,15 @@ const ClientPage = () => {
     });
   }
 
-  function warning(maxTrouble: number) {
+  const warning = (maxTrouble: number) => {
     Modal.warning({
       title: 'Предупреждение',
       content: (
           <div>
+            <Image
+              width={200}
+              src={heart}
+            />
             <p>Высокая вероятность возникновения проблемы в сердечно-сосудистой системе: <b>{maxTrouble} %</b><br/>
             Рекомендуем посетить врача.</p>
           </div>
@@ -37,11 +46,15 @@ const ClientPage = () => {
     });
   }
 
-  function info(maxTrouble: number) {
+  const info = (maxTrouble: number) => {
     Modal.info({
       title: 'Предупреждение',
       content: (
           <div>
+             <Image
+               width={200}
+               src={heart}
+             />
             <p>Возможны боолезни сердечно-сосудистой системы: <b>{maxTrouble} %</b><br/>
             Необходимо принять профилактические меры. Рекомендуем посетить врача.</p>
           </div>
@@ -50,11 +63,22 @@ const ClientPage = () => {
     });
   }
 
+  const normalizeForecasts = (clientData: any) => {
+    clientData.gipertenziya = Math.ceil(clientData.gipertenziya)
+    clientData.onmk = Math.ceil(clientData.onmk);
+    clientData.infarkt = Math.ceil(clientData.infarkt);
+    clientData.other_ill = Math.ceil(clientData.other_ill);
+
+    return clientData;
+  }
+
   useEffect(() => {
     request(`client/${params?.params?.id}`, {
       method: 'GET'
     }).then((r) => {
+      r = normalizeForecasts(r);
       setClient(r);
+
       const maxTrouble = Math.max(r.gipertenziya, r.onmk, r.infarkt, r.heart_failure, r.other_ill);
       if (maxTrouble >= 70) {
         error(maxTrouble);
@@ -177,7 +201,7 @@ const ClientPage = () => {
                />
             </Descriptions.Item>
             <Descriptions.Item label="Персональные рекомендации">
-              Текст
+              Заняться здоровым образом жизни, бросить курить
             </Descriptions.Item>
           </Descriptions>
         </>
