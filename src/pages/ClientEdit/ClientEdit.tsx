@@ -6,6 +6,7 @@ import {UserOutlined} from '@ant-design/icons';
 import {RouteParams} from '../../shared/interfaces/route';
 import {Client} from '../../shared/interfaces/client';
 import {request} from '../../shared/utils/api';
+import ClientForm from "../../shared/components/ClientForm";
 
 const ClientEdit = () => {
   const params = useRouteMatch<RouteParams>('/client/:id');
@@ -33,6 +34,7 @@ const ClientEdit = () => {
             </Button>
           </Link>
             ClientEdit component works
+            <ClientForm {...client} />
         </>
       }
     </div>
@@ -40,4 +42,3 @@ const ClientEdit = () => {
 };
 
 export default ClientEdit;
-  

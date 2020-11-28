@@ -1,8 +1,9 @@
 import React from 'react';
 import {Form, Input, Button, Checkbox, DatePicker, Radio, Upload, Select, InputNumber} from 'antd';
 import {UploadOutlined} from '@ant-design/icons';
+import {Client} from '../../interfaces/client';
 
-const ClientForm = () => {
+const ClientForm = (client: Client | null) => {
 
     const onFinish = (values: any) => {
         console.log('Success:', values);
@@ -27,6 +28,7 @@ const ClientForm = () => {
         return e && e.fileList;
     };
 
+    // @ts-ignore
     return (
         <div style={{clear: 'both'}}>
             <Form
@@ -42,7 +44,7 @@ const ClientForm = () => {
                     name="name1"
                     rules={[{required: true, message: 'Введите имя'}]}
                 >
-                    <Input/>
+                    <Input value={client?.ethnos}/>
                 </Form.Item>
                 <Form.Item
                     label="Фамилия"
