@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {Form, Input, Button, Radio, Upload, Select, InputNumber} from 'antd';
+import {Form, Input, Button, Radio, Upload, Select, InputNumber, Modal, Image} from 'antd';
 import {UploadOutlined} from '@ant-design/icons';
 import {ClientFormData} from '../../interfaces/client';
 import {request} from '../../utils/api';
@@ -13,6 +13,23 @@ const ClientForm: FC<ClientFormData> = ({client}) => {
     wrapperCol: {span: 14},
   };
 
+  const showModal = (content: string, type?: string) => {
+    switch (type) {
+      case 'error':
+        Modal.error({title: 'Ошибка', content: (<div>{content}</div>), onOk() {}});
+        break;
+      case 'warning':
+        Modal.warning({title: 'Внимание', content: (<div>{content}</div>), onOk() {}});
+        break;
+      case 'success':
+        Modal.success({title: 'Отлично', content: (<div>{content}</div>), onOk() {}});
+        break;
+      default:
+        Modal.info({title: 'Внимание', content: (<div>{content}</div>), onOk() {}});
+        break;
+    }
+  }
+
   const onFinish = (values: any) => {
     const url = client ? `client/${client.id}/edit` : 'client/add';
 
@@ -21,11 +38,17 @@ const ClientForm: FC<ClientFormData> = ({client}) => {
       body: JSON.stringify(values)
     })
       .then(r => r.json())
-      .then(r => console.log(r));
+      .then(r => {
+        if (r?.status === 'success') {
+          showModal(r?.message, 'success');
+        } else {
+          showModal('Возникла ошибка на сервере, повторите попытку позднее', 'error');
+        }
+      });
   };
 
   const onFinishFailed = (errorInfo: any) => {
-    console.log('Failed:', errorInfo);
+    showModal(errorInfo, 'error');
   };
 
   const normFile = (e: { fileList: any; }) => {
