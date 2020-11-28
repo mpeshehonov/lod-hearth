@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {Form, Input, Button, Checkbox, DatePicker, Radio, Upload, Select, InputNumber} from 'antd';
+import {Form, Input, Button, Radio, Upload, Select, InputNumber} from 'antd';
 import {UploadOutlined} from '@ant-design/icons';
 import {ClientFormData} from '../../interfaces/client';
 import {request} from '../../utils/api';
@@ -14,7 +14,7 @@ const ClientForm: FC<ClientFormData> = ({client}) => {
   };
 
   const onFinish = (values: any) => {
-    const url = client ? `client/${client}/edit` : 'client/add';
+    const url = client ? `client/${client.id}/edit` : 'client/add';
 
     request(url, {
       method: 'POST',
