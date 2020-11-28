@@ -17,4 +17,9 @@ export interface Client {
 	study: string;
 	work_end_by_ill: string;
 	working: string;
+	gipertenziya: number;
+	heart_failure: number;
+	infarkt: number;
+	onmk: number;
+	other_ill: number;
 }

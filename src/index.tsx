@@ -7,13 +7,11 @@ import PageLayout from './shared/components/PageLayout';
 import 'antd/dist/antd.css';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Router>
-      <PageLayout>
-        <Routes/>
-      </PageLayout>
-    </Router>
-  </React.StrictMode>,
+  <Router>
+    <PageLayout>
+      <Routes/>
+    </PageLayout>
+  </Router>,
   document.getElementById('root')
 );
 

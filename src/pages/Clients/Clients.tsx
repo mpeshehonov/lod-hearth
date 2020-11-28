@@ -70,6 +70,7 @@ const Clients = () => {
             </Button>
           </Link>
           <Table
+            rowKey="id"
             columns={columns}
             dataSource={clients}
             loading={tableLoading}

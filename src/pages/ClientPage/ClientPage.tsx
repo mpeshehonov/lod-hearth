@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Link, useRouteMatch} from 'react-router-dom';
 import './styles.scss';
-import {Skeleton, Button, Progress, Descriptions, Badge, Space} from 'antd';
+import {Skeleton, Button, Progress, Descriptions} from 'antd';
 import {request} from '../../shared/utils/api';
 import {RouteParams} from '../../shared/interfaces/route';
 import {Client} from '../../shared/interfaces/client';
@@ -17,7 +17,7 @@ const ClientPage = () => {
     }).then((r) => {
       setClient(r);
     });
-  }, []);
+  }, [params?.params?.id]);
 
   return (
     <div>
@@ -33,7 +33,7 @@ const ClientPage = () => {
             </Button>
           </Link>
 
-          <Descriptions title={`Анкета № ${client.id}`} bordered>
+          <Descriptions title={`Анкета № ${client.id}`} bordered layout="vertical">
             <Descriptions.Item label="Дата рождения">
               {client.birthday}
             </Descriptions.Item>
@@ -61,33 +61,58 @@ const ClientPage = () => {
             <Descriptions.Item label="Проживает">
               {client.areaType === '1' ? 'Город' : 'Село'}
             </Descriptions.Item>
-            <Descriptions.Item label="Прогнозы">
-              <Space>
+            <Descriptions.Item label="Вероятность артериальной гипертензии">
                <Progress
                  type="circle"
                  strokeColor={{
                    '20%': '#87d068',
                    '100%': '#faad14'
                  }}
-                 percent={3}
+                 percent={client.gipertenziya}
                />
+            </Descriptions.Item>
+            <Descriptions.Item label="Вероятность ОНМК">
                <Progress
                  type="circle"
                  strokeColor={{
                    '20%': '#87d068',
                    '100%': '#faad14'
                  }}
-                 percent={8}
+                 percent={client.onmk}
                />
+            </Descriptions.Item>
+            <Descriptions.Item label="Вероятность cтенокардии, ИБС, инфаркта миокарда">
                <Progress
                  type="circle"
                  strokeColor={{
                    '20%': '#87d068',
                    '100%': '#faad14'
                  }}
-                 percent={4}
+                 percent={client.infarkt}
                />
-              </Space>
+            </Descriptions.Item>
+            <Descriptions.Item label="Вероятность сердечной недостаточности">
+               <Progress
+                 type="circle"
+                 strokeColor={{
+                   '20%': '#87d068',
+                   '100%': '#faad14'
+                 }}
+                 percent={client.heart_failure}
+               />
+            </Descriptions.Item>
+            <Descriptions.Item label="Вероятность прочих заболеваний сердца">
+               <Progress
+                 type="circle"
+                 strokeColor={{
+                   '20%': '#87d068',
+                   '100%': '#faad14'
+                 }}
+                 percent={client.other_ill}
+               />
+            </Descriptions.Item>
+            <Descriptions.Item label="Персональные рекомендации">
+              Текст
             </Descriptions.Item>
           </Descriptions>
         </>
